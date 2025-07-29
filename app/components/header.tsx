@@ -42,11 +42,18 @@ export default function Header() {
   }, [])
 
   const scrollToSection = (href: string) => {
-    const element = document.getElementById(href.slice(1))
+    const elementId = href.slice(1)
+    const element = document.getElementById(elementId)
     if (element) {
       element.scrollIntoView({ behavior: "smooth" })
+      // Close menu after a slight delay to ensure scroll initiates
+      setTimeout(() => {
+        setIsOpen(false)
+      }, 300) // Small delay
+    } else {
+      // Fallback: close menu even if element not found to avoid stuck menu
+      setIsOpen(false)
     }
-    setIsOpen(false)
   }
 
   return (
