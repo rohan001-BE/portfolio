@@ -23,21 +23,26 @@ export default function Header() {
       setScrolled(window.scrollY > 50)
 
       const sections = navItems.map((item) => item.href.slice(1))
-      const scrollPosition = window.scrollY + 100
+      const scrollPosition = window.scrollY + 100 // Offset for header height
 
+      let currentActiveSection = "hero" // Default to hero if at top
       for (const section of sections) {
         const element = document.getElementById(section)
         if (element) {
           const { offsetTop, offsetHeight } = element
+          // Check if the scroll position is within the current section
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
+            currentActiveSection = section
             break
           }
         }
       }
+      setActiveSection(currentActiveSection)
     }
 
     window.addEventListener("scroll", handleScroll)
+    // Call once on mount to set initial active section
+    handleScroll()
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
@@ -46,10 +51,12 @@ export default function Header() {
     const element = document.getElementById(elementId)
     if (element) {
       element.scrollIntoView({ behavior: "smooth" })
-      // Close menu after a slight delay to ensure scroll initiates
+      // Set active section immediately for visual feedback
+      setActiveSection(elementId)
+      // Close menu after a sufficient delay to allow scroll animation to start
       setTimeout(() => {
         setIsOpen(false)
-      }, 300) // Small delay
+      }, 500) // Increased delay to 500ms
     } else {
       // Fallback: close menu even if element not found to avoid stuck menu
       setIsOpen(false)
