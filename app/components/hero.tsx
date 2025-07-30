@@ -11,7 +11,6 @@ import {
   Code2,
   Camera,
   TrendingUp,
-  ChevronDown,
   Terminal,
   Cpu,
 } from "lucide-react"
@@ -343,26 +342,6 @@ export default function Hero() {
           </motion.div>
         </div>
       </div>
-
-      {/* Enhanced scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
-        onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-          className="flex flex-col items-center space-y-2 text-blue-400"
-        >
-          <span className="text-sm font-medium">Scroll Down</span>
-          <motion.div animate={{ y: [0, 5, 0] }} transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}>
-            <ChevronDown size={24} />
-          </motion.div>
-        </motion.div>
-      </motion.div>
     </section>
   )
 }
